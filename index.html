@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#101820">
+<title>FrameLab — Sigma Profil Tasarım</title>
+<style>
+:root{color-scheme:dark;--bg:#0d151d;--panel:#15222d;--panel2:#1b2b37;--line:#2b3d4b;--muted:#91a4b1;--text:#edf4f7;--mint:#5ce0c2;--mint2:#b4ffec;--paper:#eef3f4;--ink:#263943}
+*{box-sizing:border-box}html,body{margin:0;height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}body{overflow:hidden}button,input,select{font:inherit}button{cursor:pointer;color:inherit}
+.top{height:58px;display:flex;align-items:center;padding:0 18px;gap:12px;background:#111c25;border-bottom:1px solid var(--line)}
+.logo{width:32px;height:32px;border-radius:9px;background:var(--mint);color:#08251f;display:grid;place-items:center;font-weight:900;font-size:17px}
+.brand{font-size:14px;font-weight:850;letter-spacing:.1em}.brand small{display:block;color:var(--muted);font-size:9px;font-weight:500;letter-spacing:.17em;margin-top:2px}
+.top-spacer{flex:1}.project-name{color:#b7c6ce;font-size:11px;margin-right:8px}
+.btn{border:1px solid var(--line);background:var(--panel2);padding:8px 11px;border-radius:8px;font-size:11px;font-weight:650}.btn:hover{border-color:var(--mint)}.btn.primary{background:var(--mint);border-color:var(--mint);color:#092820}.btn.ghost{background:transparent}
+.shell{height:calc(100% - 58px);display:grid;grid-template-columns:246px minmax(0,1fr) 258px}
+.panel{background:var(--panel);overflow:auto;padding:15px}.left{border-right:1px solid var(--line)}.right{border-left:1px solid var(--line)}
+.section{padding-bottom:15px;margin-bottom:15px;border-bottom:1px solid var(--line)}.section:last-child{border:0}
+.eyebrow{font-size:9px;font-weight:800;letter-spacing:.16em;color:#9bb0bd;margin:0 0 11px}
+.field{display:block;margin:10px 0 0}.field span{display:block;color:var(--muted);font-size:10px;margin-bottom:5px}
+input,select{width:100%;background:#0f1a23;color:var(--text);border:1px solid var(--line);border-radius:7px;padding:9px 10px;font-size:12px;outline:none}input:focus,select:focus{border-color:var(--mint)}
+.toolgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.tool{background:#1b2b37;border:1px solid #304452;border-radius:9px;text-align:left;padding:10px;min-height:70px}.tool.active{border-color:var(--mint);background:#193a39;box-shadow:inset 0 0 0 1px #5ce0c244}.tool .ico{font-size:19px;display:block;margin-bottom:5px}.tool b{display:block;font-size:10px}.tool small{display:block;font-size:9px;color:var(--muted);margin-top:3px}
+.center{min-width:0;display:flex;flex-direction:column;background:var(--paper);color:var(--ink)}
+.toolbar{height:48px;display:flex;align-items:center;gap:6px;padding:0 12px;background:#f8fafb;border-bottom:1px solid #d9e1e4}.toolbar .btn{background:white;border-color:#d8e0e3;color:#425965;padding:7px 9px;font-size:10px}.toolbar .btn.active{background:#dff8f1;border-color:#73d9c3;color:#14564b}
+.stage{position:relative;flex:1;min-height:280px;background:radial-gradient(ellipse at 48% 43%,#fff,#e6edef 74%);overflow:hidden}#view{display:block;width:100%;height:100%;touch-action:none}
+.hud{position:absolute;pointer-events:none;background:#ffffffdc;border:1px solid #dbe4e6;border-radius:8px;padding:8px 10px;font-size:10px;color:#435965;box-shadow:0 4px 18px #2639430c}.hud strong{color:#1d3944}.hud.tl{top:12px;left:12px}.hud.tr{top:12px;right:12px;text-align:right}.hud.bottom{bottom:12px;left:50%;transform:translateX(-50%);white-space:nowrap}
+.toast{position:absolute;bottom:52px;left:50%;transform:translateX(-50%);background:#12212b;color:white;border-radius:8px;padding:9px 13px;font-size:11px;opacity:0;transition:opacity .2s;pointer-events:none}.toast.show{opacity:1}
+.status{height:34px;display:flex;align-items:center;gap:14px;padding:0 12px;background:#f8fafb;border-top:1px solid #d9e1e4;color:#71838c;font-size:9px}.status b{color:#334b56}.push{flex:1}
+.metric{display:grid;grid-template-columns:1fr 1fr;gap:7px}.metric>div{background:#1d2e3a;border-radius:8px;padding:10px}.metric strong{font-size:18px;display:block}.metric small{font-size:9px;color:var(--muted)}
+.rowinfo{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:10px}.rowinfo span:last-child{color:#bdcbd2}
+.actionline{display:flex;gap:7px;margin-top:10px}.actionline .btn{flex:1}
+#bomwrap{max-height:210px;overflow:auto}table{width:100%;border-collapse:collapse;font-size:9px}th,td{padding:7px 3px;border-bottom:1px solid #2c3e4a;text-align:left}th{color:var(--muted);font-weight:650}
+.note{font-size:9px;line-height:1.55;color:#91a4b1;margin-top:10px}
+@media(max-width:900px){.shell{grid-template-columns:215px minmax(0,1fr)}.right{grid-column:1/-1;border-left:0;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:18px;max-height:230px}}
+@media(max-width:620px){body{overflow:auto}.top{height:54px;padding:0 11px}.project-name{display:none}.shell{height:auto;min-height:calc(100% - 54px);display:flex;flex-direction:column}.left{order:1;border:0;border-bottom:1px solid var(--line);padding:11px}.center{order:2;height:560px;flex:none}.right{order:3;display:block;max-height:none;border:0;border-top:1px solid var(--line)}.section{padding-bottom:11px;margin-bottom:11px}.toolgrid{grid-template-columns:repeat(4,1fr)}.tool{padding:7px;min-height:62px}.tool .ico{font-size:16px}.tool b{font-size:9px}.tool small{display:none}.stage{min-height:460px}.toolbar{overflow-x:auto;flex:none}.hud.bottom{white-space:normal;width:90%;text-align:center}.right{padding:13px}}
+</style>
+</head>
+<body>
+<header class="top">
+ <div class="logo">F</div><div class="brand">FRAMELAB<small>SIGMA PROFILE BUILDER</small></div>
+ <div class="top-spacer"></div><span class="project-name">Adsız tasarım</span>
+ <button class="btn ghost" id="undo">↶ Geri al</button><button class="btn primary" id="exportTop">BOM ↓</button>
+</header>
+<div class="shell">
+<aside class="panel left">
+ <section class="section"><h2 class="eyebrow">01 / TASARIM ARAÇLARI</h2>
+  <div class="toolgrid">
+   <button class="tool active" data-mode="select"><span class="ico">↖</span><b>Seç</b><small>Profili seç</small></button>
+   <button class="tool" data-mode="draw"><span class="ico">━</span><b>Profil çiz</b><small>İki nokta</small></button>
+   <button class="tool" data-mode="vertical"><span class="ico">┃</span><b>Dikey profil</b><small>Tek tık</small></button>
+   <button class="tool" data-mode="frame"><span class="ico">▱</span><b>Hazır şase</b><small>Otomatik</small></button>
+  </div>
+ </section>
+ <section class="section"><h2 class="eyebrow">02 / PROFİL KÜTÜPHANESİ</h2>
+  <label class="field"><span>Profil kesiti</span><select id="section"><option value="45x45">45 × 45 mm</option><option value="45x90">45 × 90 mm</option><option value="30x30">30 × 30 mm</option></select></label>
+  <label class="field"><span>Profil uzunluğu (mm)</span><input id="length" type="number" value="700" min="30" max="3000" step="5"></label>
+  <label class="field"><span>Izgara / yakalama</span><select id="snap"><option value="45">45 mm — Standart</option><option value="30">30 mm</option><option value="5">5 mm — Hassas</option><option value="0">Serbest</option></select></label>
+ </section>
+ <section class="section"><h2 class="eyebrow">03 / BAĞLANTI TİPİ</h2>
+  <div class="toolgrid">
+   <button class="tool active" data-joint="corner"><span class="ico">⌞</span><b>Köşe</b><small>Bağlantı</small></button>
+   <button class="tool" data-joint="cube"><span class="ico">▣</span><b>Kübik</b><small>Bağlantı</small></button>
+   <button class="tool" data-joint="inside"><span class="ico">⊞</span><b>İç bağlantı</b><small>Bağlantı</small></button>
+   <button class="tool" data-joint="t"><span class="ico">┳</span><b>T bağlantı</b><small>Bağlantı</small></button>
+  </div>
+ </section>
+ <section class="section"><h2 class="eyebrow">04 / AKSESUARLAR</h2>
+  <button class="btn" id="feet" style="width:100%;text-align:left">＋ Makine ayaklarını ekle / kaldır</button>
+  <label class="field"><span>Ayak tipi</span><select id="footType"><option>Ø80 ayarlı ayak</option><option>Ø60 ayarlı ayak</option><option>Flanşlı ayak</option></select></label>
+ </section>
+ <p class="note">Kullanım: Profil çiz modunda zeminde iki noktaya dokun. Dikey profil modunda tek noktaya dokun. Boş alanda sürükleyerek modeli döndür.</p>
+</aside>
+<main class="center">
+ <nav class="toolbar">
+  <button class="btn active" id="iso">◇ İzometrik</button><button class="btn" id="front">Ön</button><button class="btn" id="top">Üst</button><button class="btn" id="fit">Kadrajla</button><span class="push"></span><button class="btn" id="gridBtn">Izgara ✓</button>
+ </nav>
+ <div class="stage"><canvas id="view"></canvas>
+  <div class="hud tl"><strong id="modeTitle">SEÇİM MODU</strong><br><span id="modeHelp">Bir profile dokunarak seç</span></div>
+  <div class="hud tr" id="coords">X 0 · Y 0 · Z 0<br>SNAP 45 mm</div>
+  <div class="hud bottom">Sürükle: döndür · İki parmak / tekerlek: yakınlaştır · Sağ tuş: kaydır</div>
+  <div class="toast" id="toast"></div>
+ </div>
+ <div class="status"><span><b id="statusText">Hazır</b></span><span>Yakalama: <b id="snapText">45 mm</b></span><span>Seçili: <b id="selectedText">Yok</b></span><span class="push"></span><span>FRAMELAB DEMO</span></div>
+</main>
+<aside class="panel right">
+ <section class="section"><h2 class="eyebrow">05 / ŞASE ÖLÇÜLERİ</h2>
+  <label class="field"><span>Genişlik X (mm)</span><input id="width" type="number" value="900"></label>
+  <label class="field"><span>Derinlik Z (mm)</span><input id="depth" type="number" value="600"></label>
+  <label class="field"><span>Yükseklik Y (mm)</span><input id="height" type="number" value="750"></label>
+  <div class="actionline"><button class="btn primary" id="build">Şase oluştur</button><button class="btn" id="clear">Temizle</button></div>
+ </section>
+ <section class="section"><h2 class="eyebrow">06 / TASARIM ÖZETİ</h2>
+  <div class="metric"><div><strong id="profileCount">0</strong><small>PROFİL ADEDİ</small></div><div><strong id="totalLength">0 m</strong><small>TOPLAM PROFİL</small></div></div>
+  <div class="rowinfo"><span>Bağlantı tipi</span><span id="jointText">Köşe</span></div>
+  <div class="rowinfo"><span>Makine ayağı</span><span id="feetText">Yok</span></div>
+  <div class="rowinfo"><span>Profil serisi</span><span id="seriesText">45 × 45</span></div>
+ </section>
+ <section><h2 class="eyebrow">07 / KESİM LİSTESİ</h2>
+  <div id="bomwrap"><table><thead><tr><th>#</th><th>Profil</th><th>Kesit</th><th>Boy</th></tr></thead><tbody id="bom"></tbody></table></div>
+  <div class="actionline"><button class="btn" id="csv">CSV indir</button><button class="btn" id="delete">Seçileni sil</button></div>
+  <p class="note">Bu demo, Rexroth profil sistemleri referans alınarak hazırlanmış temsili bir çizim aracıdır. Resmî ürün geometrisi, kodu veya üretim onayı içermez.</p>
+ </section>
+</aside>
+</div>
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/controls/OrbitControls.js';
+const $=id=>document.getElementById(id),canvas=$('view');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,preserveDrawingBuffer:true});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));renderer.setClearColor(0xeaf0f2);
+const scene=new THREE.Scene();scene.background=new THREE.Color(0xeaf0f2);
+const camera=new THREE.PerspectiveCamera(42,1,1,30000);camera.position.set(1500,1200,1700);
+const controls=new OrbitControls(camera,canvas);controls.enableDamping=true;controls.dampingFactor=.07;controls.target.set(0,350,0);
+scene.add(new THREE.HemisphereLight(0xffffff,0x82939d,2.1));
+const sun=new THREE.DirectionalLight(0xffffff,2.0);sun.position.set(900,1500,700);scene.add(sun);
+const grid=new THREE.GridHelper(6000,120,0x9eabb4,0xd0d9de);scene.add(grid);
+const world=new THREE.Group();scene.add(world);
+const profileMat=new THREE.MeshStandardMaterial({color:0xb7c4ca,metalness:.72,roughness:.28});
+const jointMat=new THREE.MeshStandardMaterial({color:0x526572,metalness:.48,roughness:.36});
+const footMat=new THREE.MeshStandardMaterial({color:0x303c44,metalness:.35,roughness:.45});
+const highlightMat=new THREE.MeshStandardMaterial({color:0x26bfa7,metalness:.4,roughness:.3});
+let members=[],mode='select',joint='corner',selected=-1,feetOn=false,showGrid=true,history=[],feetGroup=null;
+const ray=new THREE.Raycaster(),pointer=new THREE.Vector2(),plane=new THREE.Plane(new THREE.Vector3(0,1,0),0),point=new THREE.Vector3();
+const jointNames={corner:'Köşe',cube:'Kübik',inside:'İç bağlantı',t:'T bağlantı'};
+function say(msg){$('toast').textContent=msg;$('toast').classList.add('show');clearTimeout(say.timer);say.timer=setTimeout(()=>$('toast').classList.remove('show'),1800)}
+function sectionSize(s){return s==='45x90'?[45,90]:s==='30x30'?[30,30]:[45,45]}
+function snapped(v){let s=+$('snap').value;return s?Math.round(v/s)*s:v}
+function snapshot(){history.push(members.map(m=>({a:m.a.clone(),b:m.b.clone(),section:m.section,joint:m.joint})));if(history.length>25)history.shift()}
+function makeBeam(a,b,section){let [w,h]=sectionSize(section),dir=new THREE.Vector3().subVectors(b,a),len=dir.length();let mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,len),profileMat);mesh.position.copy(a).add(b).multiplyScalar(.5);mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1),dir.normalize());mesh.userData.profile=true;return mesh}
+function addJoint(p,type){let s=type==='cube'?58: type==='inside'?26:32;let mesh=new THREE.Mesh(new THREE.BoxGeometry(s,s,s),jointMat);mesh.position.copy(p);mesh.userData.connector=true;world.add(mesh)}
+function addMember(a,b){if(a.distanceTo(b)<25){say('Profil çok kısa');return}snapshot();let section=$('section').value,mesh=makeBeam(a,b,section);world.add(mesh);members.push({a:a.clone(),b:b.clone(),section,joint,mesh});addJoint(a,joint);addJoint(b,joint);selected=members.length-1;update();say('Profil eklendi')}
+function addFeet(points){if(feetGroup){world.remove(feetGroup);feetGroup=null}feetGroup=new THREE.Group();let radius=$('footType').value.includes('60')?30:40;for(let p of points){let stem=new THREE.Mesh(new THREE.CylinderGeometry(8,8,40,20),jointMat);stem.position.set(p.x,-20,p.z);feetGroup.add(stem);let pad=new THREE.Mesh(new THREE.CylinderGeometry(radius,radius,12,24),footMat);pad.position.set(p.x,-46,p.z);feetGroup.add(pad)}world.add(feetGroup);feetOn=true;$('feet').textContent='− Makine ayaklarını kaldır';update()}
+function disposeWorld(){while(world.children.length){let o=world.children[0];world.remove(o);if(o.geometry)o.geometry.dispose()}feetGroup=null}
+function update(){let sum=0;members.forEach(m=>sum+=m.a.distanceTo(m.b));$('profileCount').textContent=members.length;$('totalLength').textContent=(sum/1000).toFixed(2)+' m';$('jointText').textContent=jointNames[joint];$('feetText').textContent=feetOn?'4 adet':'Yok';$('seriesText').textContent=$('section').value.replace('x',' × ');$('selectedText').textContent=selected>=0?'Profil '+(selected+1):'Yok';$('bom').innerHTML=members.map((m,i)=>`<tr><td>${i+1}</td><td>Alüminyum</td><td>${m.section}</td><td>${Math.round(m.a.distanceTo(m.b))}</td></tr>`).join('')}
+function fit(){let max=Math.max(+$('width').value||900,+$('depth').value||600,+$('height').value||750,700);controls.target.set(0,max*.45,0);camera.position.set(max*1.65,max*1.35,max*1.85);camera.near=1;camera.far=max*30;camera.updateProjectionMatrix();controls.update()}
+function buildFrame(){snapshot();disposeWorld();members=[];let W=+$('width').value||900,D=+$('depth').value||600,H=+$('height').value||750;let p=[new THREE.Vector3(-W/2,0,-D/2),new THREE.Vector3(W/2,0,-D/2),new THREE.Vector3(W/2,0,D/2),new THREE.Vector3(-W/2,0,D/2),new THREE.Vector3(-W/2,H,-D/2),new THREE.Vector3(W/2,H,-D/2),new THREE.Vector3(W/2,H,D/2),new THREE.Vector3(-W/2,H,D/2)];let edges=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];for(let [i,j] of edges){let section=$('section').value,mesh=makeBeam(p[i],p[j],section);world.add(mesh);members.push({a:p[i].clone(),b:p[j].clone(),section,joint,mesh})}p.forEach(v=>addJoint(v,joint));feetOn=false;addFeet(p.slice(0,4));selected=-1;update();fit();say('12 profilli şase oluşturuldu')}
+function clearModel(){snapshot();disposeWorld();members=[];selected=-1;feetOn=false;$('feet').textContent='+ Makine ayaklarını ekle';update();say('Çalışma alanı temizlendi')}
+function setMode(m){mode=m;let data={select:['SEÇİM MODU','Bir profile dokunarak seç'],draw:['PROFİL ÇİZİMİ','Başlangıç ve bitiş noktasına dokun'],vertical:['DİKEY PROFİL','Zemine dokun, seçili boyda kolon ekle'],frame:['HAZIR ŞASE','Sağ panelden ölçüleri gir ve şase oluştur']};$('modeTitle').textContent=data[m][0];$('modeHelp').textContent=data[m][1];$('statusText').textContent=data[m][0];document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',b.dataset.mode===m))}
+document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
+document.querySelectorAll('[data-joint]').forEach(b=>b.addEventListener('click',()=>{joint=b.dataset.joint;document.querySelectorAll('[data-joint]').forEach(x=>x.classList.toggle('active',x===b));update()}));
+function groundPoint(ev){let r=canvas.getBoundingClientRect();pointer.x=(ev.clientX-r.left)/r.width*2-1;pointer.y=-((ev.clientY-r.top)/r.height)*2+1;ray.setFromCamera(pointer,camera);if(ray.ray.intersectPlane(plane,point)){return new THREE.Vector3(snapped(point.x),0,snapped(point.z))}return null}
+let first=null,downAt=0;
+canvas.addEventListener('pointerdown',ev=>{if(ev.button!==0)return;downAt=performance.now();if(mode==='select'){let r=canvas.getBoundingClientRect();pointer.x=(ev.clientX-r.left)/r.width*2-1;pointer.y=-((ev.clientY-r.top)/r.height)*2+1;ray.setFromCamera(pointer,camera);let hits=ray.intersectObjects(world.children,true);let hit=hits.find(h=>h.object.userData.profile);selected=hit?members.findIndex(m=>m.mesh===hit.object):-1;update();if(selected>=0)say('Profil '+(selected+1)+' seçildi');return}let p=groundPoint(ev);if(!p)return;if(mode==='draw'){if(!first){first=p;say('İlk nokta seçildi · şimdi bitiş noktasını seç')}else{addMember(first,p);first=null}}else if(mode==='vertical'){let L=Math.max(30,Math.min(3000,+$('length').value||700));addMember(p,new THREE.Vector3(p.x,L,p.z))}});
+canvas.addEventListener('pointermove',ev=>{let p=groundPoint(ev);if(p)$('coords').innerHTML=`X ${Math.round(p.x)} · Y 0 · Z ${Math.round(p.z)}<br>SNAP ${$('snap').value==='0'?'SERBEST':$('snap').value+' mm'}`});
+$('build').onclick=buildFrame;$('clear').onclick=clearModel;
+$('feet').onclick=()=>{if(feetOn){if(feetGroup)world.remove(feetGroup);feetGroup=null;feetOn=false;$('feet').textContent='+ Makine ayaklarını ekle';update()}else{let W=+$('width').value||900,D=+$('depth').value||600;addFeet([[-W/2,-D/2],[W/2,-D/2],[W/2,D/2],[-W/2,D/2]].map(([x,z])=>new THREE.Vector3(x,0,z)))}};
+$('footType').onchange=()=>{if(feetOn){let W=+$('width').value||900,D=+$('depth').value||600;addFeet([[-W/2,-D/2],[W/2,-D/2],[W/2,D/2],[-W/2,D/2]].map(([x,z])=>new THREE.Vector3(x,0,z)))}};
+$('snap').onchange=()=>{$('snapText').textContent=$('snap').value==='0'?'Serbest':$('snap').value+' mm'};
+$('iso').onclick=()=>{fit();document.querySelectorAll('.toolbar .btn').forEach(b=>b.classList.remove('active'));$('iso').classList.add('active')};
+$('fit').onclick=fit;$('front').onclick=()=>{let m=Math.max(+$('width').value||900,700);camera.position.set(0,350,m*2.8);controls.target.set(0,350,0);controls.update()};
+$('top').onclick=()=>{camera.position.set(0,2600,.01);controls.target.set(0,0,0);controls.update()};
+$('gridBtn').onclick=()=>{showGrid=!showGrid;grid.visible=showGrid;$('gridBtn').textContent=showGrid?'Izgara ✓':'Izgara'};
+$('delete').onclick=()=>{if(selected<0||!members[selected])return say('Önce bir profil seç');snapshot();world.remove(members[selected].mesh);members.splice(selected,1);selected=-1;update();say('Profil silindi')};
+$('undo').onclick=()=>{let prev=history.pop();if(!prev)return say('Geri alınacak işlem yok');disposeWorld();members=[];prev.forEach(m=>{let mesh=makeBeam(m.a,m.b,m.section);world.add(mesh);members.push({...m,mesh});addJoint(m.a,m.joint);addJoint(m.b,m.joint)});selected=-1;feetOn=false;update();say('Son işlem geri alındı')};
+function exportCSV(){let rows=[['No','Bilesen','Kesit','Boy_mm','Baglanti'],...members.map((m,i)=>[i+1,'Aluminyum profil',m.section,Math.round(m.a.distanceTo(m.b)),m.joint])];let blob=new Blob(['\ufeff'+rows.map(r=>r.join(';')).join('\n')],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='framelab-kesim-listesi.csv';a.click();URL.revokeObjectURL(a.href)}
+$('csv').onclick=exportCSV;$('exportTop').onclick=exportCSV;
+new ResizeObserver(()=>{let r=canvas.getBoundingClientRect();if(!r.width||!r.height)return;renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.updateProjectionMatrix()}).observe(canvas);
+function animate(){requestAnimationFrame(animate);controls.update();renderer.render(scene,camera)}animate();
+$('snapText').textContent='45 mm';setMode('select');buildFrame();
+</script>
+</body></html>
