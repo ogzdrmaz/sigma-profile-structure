@@ -1,179 +1,147 @@
 <!doctype html>
 <html lang="tr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#111a22">
-<title>FrameLab Studio — 3D Sigma Profil Tasarım</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111a22"><title>FrameLab Studio — Faz 2</title>
 <style>
-:root{--bg:#111920;--panel:#18232d;--panel2:#202e39;--line:#30414d;--txt:#e9f0f3;--muted:#9aabb5;--accent:#50d7bd;--canvas:#e8eef0}
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--txt);overflow:hidden}
-button,input,select{font:inherit}button{cursor:pointer;color:var(--txt);background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:8px 10px;font-size:12px}button:hover{border-color:var(--accent)}button.active,.primary{background:var(--accent);color:#09251f;border-color:var(--accent);font-weight:700}
-header{height:58px;display:flex;align-items:center;padding:0 18px;gap:12px;background:#121c25;border-bottom:1px solid var(--line)}
-.logo{width:32px;height:32px;background:var(--accent);color:#08251f;border-radius:7px;display:grid;place-items:center;font-weight:900}.brand{font-size:14px;font-weight:800;letter-spacing:.1em}.brand small{display:block;font-size:9px;color:var(--muted);font-weight:500;letter-spacing:.16em;margin-top:3px}.spacer{flex:1}.header-actions{display:flex;gap:7px}
-.app{height:calc(100% - 58px);display:grid;grid-template-columns:260px minmax(420px,1fr) 290px}
-.panel{background:var(--panel);overflow:auto;padding:15px}.left{border-right:1px solid var(--line)}.right{border-left:1px solid var(--line)}
-.section{border-bottom:1px solid var(--line);padding-bottom:15px;margin-bottom:15px}.section:last-child{border:0}
-h3{margin:0 0 11px;font-size:10px;letter-spacing:.16em;color:#a9bbc5}
-label{display:block;margin:9px 0 0;color:var(--muted);font-size:10px}input,select{display:block;width:100%;margin-top:5px;padding:9px 10px;border-radius:6px;border:1px solid var(--line);background:#101a22;color:var(--txt);font-size:12px;outline:none}input:focus,select:focus{border-color:var(--accent)}
-.tools{display:grid;grid-template-columns:1fr 1fr;gap:7px}.tool{min-height:67px;text-align:left;padding:9px}.tool .ico{display:block;font-size:19px;margin-bottom:4px}.tool b{display:block;font-size:11px}.tool small{display:block;color:var(--muted);font-size:9px;margin-top:3px}
-.hint{font-size:10px;color:var(--muted);line-height:1.55;margin-top:9px}
-.center{min-width:0;display:flex;flex-direction:column;background:var(--canvas);color:#263943}
-.toolbar{height:46px;flex:none;display:flex;align-items:center;gap:6px;padding:0 12px;background:#f8fafb;border-bottom:1px solid #d5dfe3}.toolbar button{background:white;color:#405661;border-color:#d4dfe3;font-size:11px;padding:7px 10px}
-.view{position:relative;flex:1;min-height:0;background:radial-gradient(ellipse at 50% 45%,#fbfcfc,#e2e9ec)}#viewport{display:block;width:100%;height:100%;outline:none}
-.hud{position:absolute;pointer-events:none;background:#ffffffdc;border:1px solid #d8e1e4;border-radius:6px;padding:8px 10px;color:#415762;font-size:10px;line-height:1.5}.hud strong{color:#213b46}.hud.tl{top:12px;left:12px}.hud.tr{top:12px;right:12px;text-align:right}.hud.bl{bottom:12px;left:12px}
-.status{height:31px;flex:none;background:#f8fafb;border-top:1px solid #d7e0e4;display:flex;align-items:center;padding:0 12px;gap:15px;font-size:9px;color:#6c808a}.status b{color:#314a55}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:7px}.stat{background:#202f3a;border-radius:6px;padding:10px}.stat strong{display:block;font-size:18px}.stat small{color:var(--muted);font-size:9px}
-.info{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:10px}.info span:last-child{color:#c0ccd2}
-.actions{display:flex;gap:7px;margin-top:10px}.actions button{flex:1}
-table{width:100%;border-collapse:collapse;font-size:10px}td,th{padding:7px 3px;border-bottom:1px solid #30414d;text-align:left}th{color:var(--muted);font-weight:600}tbody tr{cursor:pointer}tbody tr.selected{background:#24534e}
-#bomwrap{max-height:220px;overflow:auto}.footnote{font-size:9px;line-height:1.5;color:var(--muted);margin-top:10px}
-#toast{position:absolute;bottom:46px;left:50%;transform:translateX(-50%);background:#14232d;color:white;padding:9px 13px;border-radius:7px;font-size:11px;opacity:0;transition:.2s;pointer-events:none}#toast.show{opacity:1}
-#loading{position:absolute;inset:0;display:grid;place-items:center;background:#e8eef0;color:#344b56;font-size:13px;z-index:4}#loading.hidden{display:none}
-@media(max-width:1050px){.app{grid-template-columns:225px minmax(360px,1fr) 250px}.panel{padding:12px}}
-@media(max-width:820px){body{overflow:auto}.app{height:auto;min-height:calc(100% - 58px);grid-template-columns:1fr}.left,.right{border:0;border-bottom:1px solid var(--line)}.center{height:650px;grid-row:2}.left{grid-row:1}.right{grid-row:3}.view{min-height:500px}}
+:root{--bg:#101820;--panel:#18242e;--panel2:#21313d;--line:#31434f;--text:#edf3f5;--muted:#9aabb5;--mint:#55ddc1;--red:#f16e6e;--green:#51c89a;--blue:#67aaf5;--paper:#eaf0f2}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--text);font:13px Inter,Segoe UI,Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer;color:var(--text);background:var(--panel2);border:1px solid var(--line);border-radius:7px;padding:8px 10px}button:hover{border-color:var(--mint)}button.active,.primary{background:var(--mint);color:#08261f;border-color:var(--mint);font-weight:700}
+header{height:56px;display:flex;align-items:center;padding:0 16px;gap:11px;background:#121c25;border-bottom:1px solid var(--line)}.logo{width:31px;height:31px;border-radius:8px;background:var(--mint);color:#08251e;display:grid;place-items:center;font-weight:900}.brand{font-weight:850;letter-spacing:.1em}.brand small{display:block;font-size:9px;color:var(--muted);letter-spacing:.15em;font-weight:500;margin-top:2px}.spacer{flex:1}.headgroup{display:flex;gap:6px}
+.app{height:calc(100% - 56px);display:grid;grid-template-columns:255px minmax(420px,1fr) 275px}.panel{background:var(--panel);overflow:auto;padding:14px}.left{border-right:1px solid var(--line)}.right{border-left:1px solid var(--line)}.section{padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid var(--line)}.section:last-child{border:0}
+h3{font-size:10px;letter-spacing:.15em;color:#a9bac3;margin:0 0 10px}.tools{display:grid;grid-template-columns:1fr 1fr;gap:7px}.tool{text-align:left;min-height:62px;padding:8px}.tool b{display:block;font-size:11px}.tool small{display:block;color:var(--muted);font-size:9px;margin-top:3px}.tool .ico{font-size:18px;display:block;margin-bottom:3px}
+label{display:block;font-size:10px;color:var(--muted);margin-top:9px}input,select{width:100%;display:block;margin-top:5px;padding:9px;background:#101a22;border:1px solid var(--line);border-radius:6px;color:var(--text);outline:none}input:focus,select:focus{border-color:var(--mint)}
+.hint{font-size:10px;color:var(--muted);line-height:1.55}.center{display:flex;flex-direction:column;min-width:0;background:var(--paper);color:#243943}.toolbar{height:45px;display:flex;align-items:center;gap:6px;padding:0 10px;background:#f8fafb;border-bottom:1px solid #d8e0e3}.toolbar button{background:white;color:#405660;border-color:#d5dfe2;font-size:10px;padding:7px 9px}.toolbar button.active{background:#dff8f1;color:#15564b;border-color:#6bd4bc}
+.viewport{position:relative;flex:1;min-height:0;background:radial-gradient(ellipse at 50% 43%,#fff,#e4ebee)}canvas{display:block;width:100%;height:100%;outline:none}.hud{position:absolute;pointer-events:none;background:#ffffffdf;border:1px solid #d9e2e5;border-radius:7px;padding:8px 10px;color:#405762;font-size:10px;line-height:1.5}.hud strong{color:#213b45}.tl{top:12px;left:12px}.tr{top:12px;right:12px;text-align:right}.bl{bottom:12px;left:12px}.status{height:30px;display:flex;align-items:center;gap:14px;padding:0 11px;background:#f8fafb;border-top:1px solid #d8e0e3;color:#6d818b;font-size:9px}.status b{color:#344d58}
+.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.stat{background:#21313d;border-radius:7px;padding:10px}.stat strong{font-size:18px;display:block}.stat small{font-size:9px;color:var(--muted)}.info{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:10px}.info span:last-child{color:#c4d0d5}
+.actions{display:flex;gap:6px;margin-top:9px}.actions button{flex:1;font-size:10px}#bom{max-height:180px;overflow:auto}table{width:100%;border-collapse:collapse;font-size:10px}td,th{text-align:left;padding:7px 3px;border-bottom:1px solid var(--line)}th{color:var(--muted)}tr.selected{background:#24534e}
+#toast{position:absolute;bottom:45px;left:50%;transform:translateX(-50%);background:#13232c;color:white;padding:9px 13px;border-radius:7px;opacity:0;transition:.15s;pointer-events:none;font-size:11px;white-space:nowrap}#toast.show{opacity:1}.legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;font-size:9px;color:var(--muted)}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px}
+@media(max-width:1000px){.app{grid-template-columns:220px minmax(350px,1fr) 240px}.panel{padding:11px}}
+@media(max-width:780px){body{overflow:auto}.app{height:auto;display:flex;flex-direction:column}.center{height:650px;order:2}.left{order:1;border:0;border-bottom:1px solid var(--line)}.right{order:3;border:0;border-top:1px solid var(--line)}.viewport{min-height:500px}}
 </style>
 </head>
 <body>
-<header><div class="logo">F</div><div class="brand">FRAMELAB STUDIO<small>3D ALUMINIUM PROFILE CONFIGURATOR</small></div><div class="spacer"></div><div class="header-actions"><button id="undo">↶ Geri al</button><button id="reset">Sıfırla</button><button class="primary" id="csvTop">Kesim listesi ↓</button></div></header>
+<header><div class="logo">F</div><div class="brand">FRAMELAB STUDIO<small>SELECTION · SNAP · TRANSFORM / PHASE 2</small></div><div class="spacer"></div><div class="headgroup"><button id="undo">↶ Geri al</button><button id="saveCsv" class="primary">Kesim listesi ↓</button></div></header>
 <div class="app">
 <aside class="panel left">
- <section class="section"><h3>01 / TASARIM ARAÇLARI</h3><div class="tools">
-  <button class="tool active" data-mode="select"><span class="ico">↖</span><b>Seçim</b><small>Profili seç / sil</small></button>
-  <button class="tool" data-mode="beam"><span class="ico">━</span><b>Profil çiz</b><small>İki nokta seç</small></button>
-  <button class="tool" data-mode="vertical"><span class="ico">┃</span><b>Dikey profil</b><small>Tek tıkla ekle</small></button>
-  <button class="tool" data-mode="frame"><span class="ico">▱</span><b>Hazır şase</b><small>Ölçülerden oluştur</small></button>
+ <section class="section"><h3>01 / ETKİLEŞİM ARAÇLARI</h3><div class="tools">
+  <button class="tool active" data-mode="select"><span class="ico">↖</span><b>Seç / taşı</b><small>Parçayı seç, gizmo ile taşı</small></button>
+  <button class="tool" data-mode="beam"><span class="ico">━</span><b>Profil ekle</b><small>İki nokta arasında çiz</small></button>
+  <button class="tool" data-mode="vertical"><span class="ico">┃</span><b>Dikey profil</b><small>Yerden yukarı ekle</small></button>
+  <button class="tool" data-mode="frame"><span class="ico">▱</span><b>Hazır şase</b><small>Ölçülerden üret</small></button>
  </div></section>
- <section class="section"><h3>02 / PROFİL KÜTÜPHANESİ</h3>
-  <label>Profil kesiti<select id="section"><option value="45x45">45 × 45 mm</option><option value="45x90">45 × 90 mm</option><option value="30x30">30 × 30 mm</option></select></label>
-  <label>Kolon / profil uzunluğu (mm)<input id="length" type="number" value="700" min="30" max="3000" step="5"></label>
-  <label>Izgara yakalama<select id="snap"><option value="45">45 mm — Standart</option><option value="30">30 mm</option><option value="5">5 mm — Hassas</option><option value="0">Serbest</option></select></label>
+ <section class="section"><h3>02 / PROFİL</h3>
+  <label>Kesit<select id="section"><option value="45x45">45 × 45</option><option value="45x90">45 × 90</option><option value="30x30">30 × 30</option></select></label>
+  <label>Uzunluk (mm)<input id="length" type="number" value="700" min="30" max="3000" step="5"></label>
+  <label>Izgara adımı<select id="snap"><option value="45">45 mm</option><option value="30">30 mm</option><option value="5">5 mm</option><option value="0">Serbest</option></select></label>
  </section>
- <section class="section"><h3>03 / BAĞLANTI ELEMANLARI</h3><div class="tools">
-  <button class="tool active" data-joint="corner"><span class="ico">⌞</span><b>Köşe bağlantı</b><small>L braket + civata</small></button>
-  <button class="tool" data-joint="cube"><span class="ico">▣</span><b>Kübik bağlantı</b><small>Köşe küpü</small></button>
-  <button class="tool" data-joint="inside"><span class="ico">⊞</span><b>İç bağlantı</b><small>İçten birleştirme</small></button>
-  <button class="tool" data-joint="t"><span class="ico">┳</span><b>T bağlantı</b><small>T bağlantı plakası</small></button>
- </div><label>Yeni bağlantı tipi<select id="jointSelect"><option value="corner">Köşe bağlantı</option><option value="cube">Kübik bağlantı</option><option value="inside">İç bağlantı</option><option value="t">T bağlantı</option></select></label>
+ <section class="section"><h3>03 / BAĞLANTI</h3><div class="tools">
+  <button class="tool active" data-joint="corner"><span class="ico">⌞</span><b>Köşe</b><small>L bağlantı plakası</small></button>
+  <button class="tool" data-joint="cube"><span class="ico">▣</span><b>Kübik</b><small>Köşe küpü</small></button>
+  <button class="tool" data-joint="inside"><span class="ico">⊞</span><b>İç bağlantı</b><small>İçten bağlantı</small></button>
+  <button class="tool" data-joint="t"><span class="ico">┳</span><b>T bağlantı</b><small>T plakası</small></button>
+ </div></section>
+ <section class="section"><h3>04 / DÖNÜŞ VE YAKALAMA</h3>
+  <div class="actions"><button id="translate" class="active">↔ Taşı</button><button id="rotate">⟳ Döndür</button></div>
+  <label>Taşıma yakalaması<select id="moveSnap"><option value="5">5 mm hassas</option><option value="45">45 mm</option><option value="1">1 mm</option><option value="0">Serbest</option></select></label>
+  <label>Döndürme adımı<select id="rotateSnap"><option value="15">15°</option><option value="5">5°</option><option value="1">1°</option><option value="0">Serbest</option></select></label>
+  <p class="hint">Gizmo oklarını sürükleyerek tek eksende taşı. Renkli halkaları sürükleyerek döndür. Bir parçayı taşırken yakındaki bağlantı noktası yeşil görünür.</p>
  </section>
- <section class="section"><h3>04 / AKSESUARLAR</h3><button id="feet" style="width:100%">＋ Dört makine ayağı ekle / kaldır</button><label>Ayak tipi<select id="footType"><option value="80">Ø80 ayarlı ayak</option><option value="60">Ø60 ayarlı ayak</option><option value="flange">Flanşlı ayak</option></select></label></section>
- <p class="hint">Profil çiz: çalışma düzleminde ilk ve ikinci noktaya tıkla. Kamera: sol tuşla döndür, tekerlekle zoom, sağ tuşla kaydır. Seçim modunda profile tıklayıp Delete tuşuyla silebilirsin.</p>
+ <p class="hint"><b>Inventor mouse kontrolü</b><br>Orbit: Shift + orta tuş sürükle<br>Pan: orta tuş sürükle<br>Zoom: tekerlek<br>Seçim: sol tık<br>Home: kadrajla · Delete: seçili profili sil</p>
 </aside>
 <main class="center">
- <div class="toolbar"><button id="iso">◇ İzometrik</button><button id="front">Ön görünüş</button><button id="side">Yan görünüş</button><button id="top">Üst görünüş</button><button id="fit">Kadrajla</button><div class="spacer"></div><button id="gridBtn">Izgara ✓</button></div>
- <div class="view"><canvas id="viewport"></canvas><div class="hud tl"><strong id="modeTitle">SEÇİM MODU</strong><br><span id="modeHelp">Profile tıklayarak seç</span></div><div class="hud tr" id="coords">X 0 · Y 0 · Z 0<br>SNAP 45 mm</div><div class="hud bl">3D MODEL · ORBIT / PAN / ZOOM</div><div id="loading">3D motor yükleniyor…</div><div id="toast"></div></div>
- <div class="status"><span><b id="statusText">Hazır</b></span><span>Yakalama: <b id="snapText">45 mm</b></span><span>Seçili: <b id="selectedText">Yok</b></span><span class="spacer"></span><span>FRAMELAB STUDIO · DEMO</span></div>
+ <div class="toolbar"><button id="iso" class="active">◇ İzometrik</button><button id="front">Ön</button><button id="side">Yan</button><button id="top">Üst</button><button id="fit">Kadrajla</button><div class="spacer"></div><button id="gridBtn">Izgara ✓</button></div>
+ <div class="viewport"><canvas id="canvas"></canvas><div class="hud tl"><strong id="modeTitle">SEÇİM MODU</strong><br><span id="modeHelp">Bir profili seç</span></div><div class="hud tr" id="coords">X 0 · Y 0 · Z 0<br>SNAP 45 mm</div><div class="hud bl">Shift + MMB: Orbit · MMB: Pan · Wheel: Zoom</div><div id="toast"></div></div>
+ <div class="status"><span><b id="statusText">Hazır</b></span><span>Seçili: <b id="selectedText">Yok</b></span><span>Yakalama: <b id="snapStatus">5 mm</b></span><span class="spacer"></span><span>FAZ 2 / ETKİLEŞİM MOTORU</span></div>
 </main>
 <aside class="panel right">
- <section class="section"><h3>05 / ŞASE ÖLÇÜLERİ</h3><label>Genişlik X (mm)<input id="width" type="number" value="900"></label><label>Derinlik Z (mm)<input id="depth" type="number" value="600"></label><label>Yükseklik Y (mm)<input id="height" type="number" value="750"></label><div class="actions"><button class="primary" id="build">Şase oluştur</button><button id="clear">Sahneyi temizle</button></div></section>
- <section class="section"><h3>06 / MODEL ÖZETİ</h3><div class="stats"><div class="stat"><strong id="profileCount">0</strong><small>PROFİL ADEDİ</small></div><div class="stat"><strong id="totalLength">0 m</strong><small>TOPLAM PROFİL</small></div></div><div class="info"><span>Bağlantı tipi</span><span id="jointName">Köşe bağlantı</span></div><div class="info"><span>Makine ayağı</span><span id="footName">Yok</span></div><div class="info"><span>Profil serisi</span><span id="seriesName">45 × 45</span></div></section>
- <section><h3>07 / KESİM LİSTESİ</h3><div id="bomwrap"><table><thead><tr><th>#</th><th>Bileşen</th><th>Kesit</th><th>Boy mm</th></tr></thead><tbody id="bom"></tbody></table></div><div class="actions"><button id="csv">CSV indir</button><button id="delete">Seçileni sil</button></div><p class="footnote">Profiller T-kanal görünümü ve bağlantılar 3D temsili geometriyle modellenmiştir. Bu demo resmî Rexroth CAD dosyası veya üretim onayı değildir.</p></section>
+ <section class="section"><h3>05 / ŞASE ÖLÇÜLERİ</h3><label>Genişlik X<input id="width" type="number" value="900"></label><label>Derinlik Z<input id="depth" type="number" value="600"></label><label>Yükseklik Y<input id="height" type="number" value="750"></label><div class="actions"><button class="primary" id="build">Şase oluştur</button><button id="clear">Temizle</button></div></section>
+ <section class="section"><h3>06 / MODEL ÖZETİ</h3><div class="statgrid"><div class="stat"><strong id="count">0</strong><small>PROFİL ADEDİ</small></div><div class="stat"><strong id="total">0 m</strong><small>TOPLAM BOY</small></div></div><div class="info"><span>Bağlantı tipi</span><span id="jointName">Köşe</span></div><div class="info"><span>Seçili profil</span><span id="selectedLength">—</span></div></section>
+ <section><h3>07 / KESİM LİSTESİ</h3><div id="bom"><table><thead><tr><th>#</th><th>Kesit</th><th>Boy</th></tr></thead><tbody id="bomBody"></tbody></table></div><div class="actions"><button id="delete">Seçileni sil</button><button id="csv">CSV indir</button></div><p class="hint">Not: Faz 2 prototipidir. Otomatik yakalama, hareket ve döndürme etkileşimleri geliştirilmektedir. Geometri temsili Rexroth kesitidir; üretim CAD'i değildir.</p>
+ </section>
 </aside>
 </div>
-<!-- Classic scripts: works on GitHub Pages and avoids ES-module/file-origin import errors. -->
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/TransformControls.js"></script>
 <script>
-(function(){
-const $=id=>document.getElementById(id),canvas=$('viewport');
-if(!window.THREE||!THREE.OrbitControls){$('loading').textContent='3D kütüphanesi yüklenemedi. İnternet bağlantısını kontrol edip sayfayı yenileyin.';return}
-const renderer=new THREE.WebGLRenderer({canvas,antialias:true,preserveDrawingBuffer:true});renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));renderer.setClearColor(0xe8eef0);
-const scene=new THREE.Scene();scene.background=new THREE.Color(0xe8eef0);
-const camera=new THREE.PerspectiveCamera(42,1,1,30000);camera.position.set(1500,1200,1700);
-const controls=new THREE.OrbitControls(camera,canvas);controls.enableDamping=true;controls.dampingFactor=.07;controls.target.set(0,350,0);
-scene.add(new THREE.HemisphereLight(0xffffff,0x7d8b93,1.9));const sun=new THREE.DirectionalLight(0xffffff,2);sun.position.set(900,1500,700);scene.add(sun);
-const grid=new THREE.GridHelper(6000,120,0x9eabb4,0xd0d9de);scene.add(grid);
+(()=>{'use strict';
+const $=id=>document.getElementById(id),canvas=$('canvas');
+if(!window.THREE||!THREE.OrbitControls||!THREE.TransformControls){$('modeHelp').textContent='3D kütüphaneleri yüklenemedi. İnternet bağlantısını kontrol edin.';return}
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,preserveDrawingBuffer:true});renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.setClearColor(0xeaf0f2);
+const scene=new THREE.Scene();scene.background=new THREE.Color(0xeaf0f2);
+const camera=new THREE.PerspectiveCamera(42,1,1,50000);camera.position.set(1600,1250,1750);
+const orbit=new THREE.OrbitControls(camera,canvas);orbit.enableDamping=true;orbit.dampingFactor=.075;orbit.mouseButtons={LEFT:THREE.MOUSE.ROTATE,MIDDLE:THREE.MOUSE.PAN,RIGHT:THREE.MOUSE.PAN};orbit.target.set(0,350,0);
+/* Inventor navigation: middle button pans; Shift + middle button orbits. */
+canvas.addEventListener('pointerdown',ev=>{if(ev.button===1)orbit.mouseButtons.MIDDLE=ev.shiftKey?THREE.MOUSE.ROTATE:THREE.MOUSE.PAN;},true);
+canvas.addEventListener('pointerup',()=>{orbit.mouseButtons.MIDDLE=THREE.MOUSE.PAN;},true);
+scene.add(new THREE.HemisphereLight(0xffffff,0x89969e,1.9));let sun=new THREE.DirectionalLight(0xffffff,2);sun.position.set(900,1700,800);scene.add(sun);
+const grid=new THREE.GridHelper(6000,120,0x9baab2,0xd1dadd);scene.add(grid);
 const world=new THREE.Group();scene.add(world);
-const silver=new THREE.MeshStandardMaterial({color:0xb9c4ca,metalness:.76,roughness:.27});
-const grooveMat=new THREE.MeshStandardMaterial({color:0x56636b,metalness:.45,roughness:.42});
-const connectorMat=new THREE.MeshStandardMaterial({color:0x465660,metalness:.6,roughness:.32});
-const boltMat=new THREE.MeshStandardMaterial({color:0x202b31,metalness:.75,roughness:.25});
-const footMat=new THREE.MeshStandardMaterial({color:0x303b42,metalness:.35,roughness:.42});
-const highlight=new THREE.MeshStandardMaterial({color:0x27bda7,metalness:.4,roughness:.3});
-let members=[],mode='select',joint='corner',selected=-1,firstPoint=null,feetGroup=null,feetOn=false,showGrid=true,history=[];
-const ray=new THREE.Raycaster(),mouse=new THREE.Vector2(),ground=new THREE.Plane(new THREE.Vector3(0,1,0),0),hitPoint=new THREE.Vector3();
-const jointNames={corner:'Köşe bağlantı',cube:'Kübik bağlantı',inside:'İç bağlantı',t:'T bağlantı'};
-function toast(s){$('toast').textContent=s;$('toast').classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>$('toast').classList.remove('show'),1900)}
-function sectionDims(s){return s==='45x90'?[45,90]:s==='30x30'?[30,30]:[45,45]}
-function snap(v){let n=+$('snap').value;return n?Math.round(v/n)*n:v}
-function snapshot(){history.push(members.map(m=>({a:m.a.clone(),b:m.b.clone(),section:m.section,joint:m.joint})));if(history.length>30)history.shift()}
-function orientedBox(parent,w,h,l,center,axis,material){let mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,l),material);mesh.position.copy(center);mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1),axis.clone().normalize());parent.add(mesh);return mesh}
-function makeProfile(a,b,section){
- const group=new THREE.Group(),axis=new THREE.Vector3().subVectors(b,a),len=axis.length(),[w,h]=sectionDims(section);
- const center=a.clone().add(b).multiplyScalar(.5);
- // Extruded-looking aluminium body with continuous T-slot grooves on all four faces.
- orientedBox(group,w,h,len, new THREE.Vector3(0,0,0),new THREE.Vector3(0,0,1),silver);
- const slotW=8,slotDepth=3.5;
- // Face grooves: dark inset slot, two narrow lips, and a central bore along the profile.
- const grooveLen=len+0.5;
- orientedBox(group,slotW,slotDepth,grooveLen,new THREE.Vector3(0,h/2-slotDepth/2,0),new THREE.Vector3(0,0,1),grooveMat);
- orientedBox(group,slotW,slotDepth,grooveLen,new THREE.Vector3(0,-h/2+slotDepth/2,0),new THREE.Vector3(0,0,1),grooveMat);
- orientedBox(group,slotDepth,slotW,grooveLen,new THREE.Vector3(w/2-slotDepth/2,0,0),new THREE.Vector3(0,0,1),grooveMat);
- orientedBox(group,slotDepth,slotW,grooveLen,new THREE.Vector3(-w/2+slotDepth/2,0,0),new THREE.Vector3(0,0,1),grooveMat);
- // Small dark center bore at each end and a continuous visual axis.
- let bore=new THREE.Mesh(new THREE.CylinderGeometry(3.2,3.2,len,12),boltMat);bore.rotation.x=Math.PI/2;group.add(bore);
- // orient local extrusion axis onto requested segment.
- group.position.copy(center);group.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1),axis.clone().normalize());
- group.traverse(o=>{if(o.isMesh)o.userData.profileRoot=group});
- group.userData.profile=true;world.add(group);return group;
-}
-function addBolt(parent,pos,axis){let bolt=new THREE.Mesh(new THREE.CylinderGeometry(4,4,5,12),boltMat);bolt.position.copy(pos);bolt.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),axis.clone().normalize());parent.add(bolt)}
-function addConnector(p,type,axisHint){
- const g=new THREE.Group();g.position.copy(p);const s=type==='cube'?48: type==='inside'?24:32;
- if(type==='cube'){
-  let cube=new THREE.Mesh(new THREE.BoxGeometry(48,48,48),connectorMat);g.add(cube);
-  // six visible fixing screws
-  [[25,0,0],[-25,0,0],[0,25,0],[0,-25,0],[0,0,25],[0,0,-25]].forEach(v=>addBolt(g,new THREE.Vector3(...v),new THREE.Vector3(...v)));
- }else if(type==='inside'){
-  let core=new THREE.Mesh(new THREE.BoxGeometry(20,20,30),connectorMat);g.add(core);
-  let pin=new THREE.Mesh(new THREE.CylinderGeometry(5,5,42,12),boltMat);pin.rotation.x=Math.PI/2;g.add(pin);
- }else if(type==='t'){
-  let plate1=new THREE.Mesh(new THREE.BoxGeometry(52,7,34),connectorMat);plate1.position.y=20;g.add(plate1);
-  let plate2=new THREE.Mesh(new THREE.BoxGeometry(7,34,34),connectorMat);plate2.position.x=20;g.add(plate2);
-  addBolt(g,new THREE.Vector3(0,25,0),new THREE.Vector3(0,1,0));addBolt(g,new THREE.Vector3(25,0,0),new THREE.Vector3(1,0,0));
- }else{
-  let plateA=new THREE.Mesh(new THREE.BoxGeometry(44,6,34),connectorMat);plateA.position.y=19;g.add(plateA);
-  let plateB=new THREE.Mesh(new THREE.BoxGeometry(6,34,34),connectorMat);plateB.position.x=19;g.add(plateB);
-  addBolt(g,new THREE.Vector3(-12,24,0),new THREE.Vector3(0,1,0));addBolt(g,new THREE.Vector3(12,24,0),new THREE.Vector3(0,1,0));addBolt(g,new THREE.Vector3(24,-12,0),new THREE.Vector3(1,0,0));addBolt(g,new THREE.Vector3(24,12,0),new THREE.Vector3(1,0,0));
- }
- g.userData.connector=true;world.add(g);return g;
-}
-function makeFeet(points){if(feetGroup)world.remove(feetGroup);feetGroup=new THREE.Group();let type=$('footType').value,r=type==='60'?30:40;points.forEach(p=>{let stem=new THREE.Mesh(new THREE.CylinderGeometry(8,8,38,18),connectorMat);stem.position.set(p.x,-19,p.z);feetGroup.add(stem);let pad=new THREE.Mesh(new THREE.CylinderGeometry(r,r,12,24),footMat);pad.position.set(p.x,-44,p.z);feetGroup.add(pad);let top=new THREE.Mesh(new THREE.CylinderGeometry(13,13,7,20),connectorMat);top.position.set(p.x,-2,p.z);feetGroup.add(top)});world.add(feetGroup);feetOn=true;$('feet').textContent='− Makine ayaklarını kaldır';update()}
-function clearWorld(){while(world.children.length){let o=world.children[0];world.remove(o);o.traverse?.(n=>{if(n.geometry)n.geometry.dispose()})}feetGroup=null}
-function rebuildConnectors(){world.children.filter(o=>o.userData.connector).forEach(o=>world.remove(o));let map=new Map();members.forEach(m=>[m.a,m.b].forEach(p=>map.set(p.x+','+p.y+','+p.z,p)));map.forEach(p=>addConnector(p,joint))}
-function addMember(a,b){if(a.distanceTo(b)<25){toast('Profil çok kısa');return}snapshot();let section=$('section').value;let mesh=makeProfile(a,b,section);members.push({a:a.clone(),b:b.clone(),section,joint,mesh});rebuildConnectors();selected=members.length-1;update();toast('3D profil eklendi')}
-function update(){let total=0;members.forEach(m=>total+=m.a.distanceTo(m.b));$('profileCount').textContent=members.length;$('totalLength').textContent=(total/1000).toFixed(2)+' m';$('jointName').textContent=jointNames[joint];$('footName').textContent=feetOn?'4 adet':'Yok';$('seriesName').textContent=$('section').value.replace('x',' × ');$('selectedText').textContent=selected>=0?'Profil '+(selected+1):'Yok';$('bom').innerHTML=members.map((m,i)=>`<tr data-index="${i}" class="${i===selected?'selected':''}"><td>${i+1}</td><td>Profil</td><td>${m.section}</td><td>${Math.round(m.a.distanceTo(m.b))}</td></tr>`).join('');$('bom').querySelectorAll('tr').forEach(tr=>tr.onclick=()=>{selected=+tr.dataset.index;update()})}
-function fit(){let max=Math.max(+$('width').value||900,+$('depth').value||600,+$('height').value||750,700);controls.target.set(0,max*.45,0);camera.position.set(max*1.65,max*1.35,max*1.85);camera.near=1;camera.far=max*30;camera.updateProjectionMatrix();controls.update()}
-function buildFrame(){snapshot();clearWorld();members=[];let W=+$('width').value||900,D=+$('depth').value||600,H=+$('height').value||750;let p=[new THREE.Vector3(-W/2,0,-D/2),new THREE.Vector3(W/2,0,-D/2),new THREE.Vector3(W/2,0,D/2),new THREE.Vector3(-W/2,0,D/2),new THREE.Vector3(-W/2,H,-D/2),new THREE.Vector3(W/2,H,-D/2),new THREE.Vector3(W/2,H,D/2),new THREE.Vector3(-W/2,H,D/2)];let edges=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];edges.forEach(([i,j])=>{let section=$('section').value,mesh=makeProfile(p[i],p[j],section);members.push({a:p[i].clone(),b:p[j].clone(),section,joint,mesh})});rebuildConnectors();makeFeet(p.slice(0,4));selected=-1;update();fit();toast('12 profilli 3D şase oluşturuldu')}
-function setMode(m){mode=m;let info={select:['SEÇİM MODU','Profile tıklayarak seç'],beam:['PROFİL ÇİZİMİ','İlk ve ikinci noktaya tıkla'],vertical:['DİKEY PROFİL','Zemine tıkla, uzunluk kadar yükselir'],frame:['HAZIR ŞASE','Ölçüleri girip şase oluştur']};$('modeTitle').textContent=info[m][0];$('modeHelp').textContent=info[m][1];$('statusText').textContent=info[m][0];document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',b.dataset.mode===m));firstPoint=null}
+const silver=new THREE.MeshStandardMaterial({color:0xb9c4ca,metalness:.72,roughness:.28}),dark=new THREE.MeshStandardMaterial({color:0x4e5d66,metalness:.55,roughness:.34}),black=new THREE.MeshStandardMaterial({color:0x27343b,metalness:.7,roughness:.25}),green=new THREE.MeshStandardMaterial({color:0x28c49f,emissive:0x0b382e}),red=new THREE.MeshStandardMaterial({color:0xf16e6e});
+const transform=new THREE.TransformControls(camera,renderer.domElement);scene.add(transform);transform.setMode('translate');transform.setSpace('world');transform.setSize(1.0);
+let parts=[],connectors=[],mode='select',joint='corner',selected=-1,firstPoint=null,showGrid=true,history=[],dragging=false,dragStart=null;
+const snapMarker=new THREE.Mesh(new THREE.SphereGeometry(9,16,12),new THREE.MeshBasicMaterial({color:0x16a879}));
+snapMarker.visible=false;scene.add(snapMarker);
+const ray=new THREE.Raycaster(),mouse=new THREE.Vector2(),plane=new THREE.Plane(new THREE.Vector3(0,1,0),0),hit=new THREE.Vector3();
+const names={corner:'Köşe bağlantı',cube:'Kübik bağlantı',inside:'İç bağlantı',t:'T bağlantı'};
+function msg(s){$('toast').textContent=s;$('toast').classList.add('show');clearTimeout(msg.t);msg.t=setTimeout(()=>$('toast').classList.remove('show'),1700)}
+function snap(v,step=+$('snap').value){return step?Math.round(v/step)*step:v}
+function profileSize(s){return s==='45x90'?[45,90]:s==='30x30'?[30,30]:[45,45]}
+function save(){history.push(parts.map(p=>({a:p.a.clone(),b:p.b.clone(),section:p.section,joint:p.joint})));if(history.length>30)history.shift()}
+function beamGeometry(a,b,s){let [w,h]=profileSize(s),len=a.distanceTo(b),g=new THREE.Group(),body=new THREE.Mesh(new THREE.BoxGeometry(w,h,len),silver);g.add(body);
+ const groovemat=dark,slot=8,dep=3;
+ const add=(ww,hh,x,y)=>{let m=new THREE.Mesh(new THREE.BoxGeometry(ww,hh,len+.2),groovemat);m.position.set(x,y,0);g.add(m)};
+ add(slot,dep,0,h/2-dep/2);add(slot,dep,0,-h/2+dep/2);add(dep,slot,w/2-dep/2,0);add(dep,slot,-w/2+dep/2,0);
+ let bore=new THREE.Mesh(new THREE.CylinderGeometry(3,3,len,12),black);bore.rotation.x=Math.PI/2;g.add(bore);
+ let dir=b.clone().sub(a).normalize();g.position.copy(a).add(b).multiplyScalar(.5);g.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1),dir);g.userData.partRoot=true;g.traverse(o=>{if(o.isMesh)o.userData.root=g});world.add(g);return g}
+function connectorAt(p,type){let g=new THREE.Group();g.position.copy(p);let cube=type==='cube';if(cube){let m=new THREE.Mesh(new THREE.BoxGeometry(48,48,48),dark);g.add(m);[[25,0,0],[-25,0,0],[0,25,0],[0,-25,0],[0,0,25],[0,0,-25]].forEach(v=>{let b=new THREE.Mesh(new THREE.CylinderGeometry(4,4,5,12),black);b.position.set(...v);b.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),new THREE.Vector3(...v).normalize());g.add(b)})}else{let p1=new THREE.Mesh(new THREE.BoxGeometry(42,6,30),dark);p1.position.y=18;g.add(p1);let p2=new THREE.Mesh(new THREE.BoxGeometry(6,30,30),dark);p2.position.x=18;g.add(p2);for(let v of [[-12,23,0],[12,23,0],[23,-12,0],[23,12,0]]){let b=new THREE.Mesh(new THREE.CylinderGeometry(3.5,3.5,5,10),black);b.position.set(...v);g.add(b)}}world.add(g);connectors.push(g)}
+function rebuildConnectors(){connectors.forEach(c=>world.remove(c));connectors=[];let seen=new Set();parts.forEach(p=>[p.a,p.b].forEach(v=>{let k=[v.x,v.y,v.z].map(n=>n.toFixed(2)).join(':');if(!seen.has(k)){seen.add(k);connectorAt(v,joint)}}))}
+function addPart(a,b){if(a.distanceTo(b)<20)return msg('Profil çok kısa');save();let section=$('section').value,mesh=beamGeometry(a,b,section);parts.push({a:a.clone(),b:b.clone(),section,joint,mesh});rebuildConnectors();select(parts.length-1);msg('Profil eklendi ve uç noktaları yakalandı')}
+function select(i){selected=i;if(i<0){transform.detach();$('selectedLength').textContent='—'}else{transform.attach(parts[i].mesh);$('selectedLength').textContent=Math.round(parts[i].a.distanceTo(parts[i].b))+' mm'}$('selectedText').textContent=i<0?'Yok':'Profil '+(i+1);update()}
+function update(){let total=0;parts.forEach(p=>total+=p.a.distanceTo(p.b));$('count').textContent=parts.length;$('total').textContent=(total/1000).toFixed(2)+' m';$('jointName').textContent=names[joint];$('bomBody').innerHTML=parts.map((p,i)=>`<tr data-i="${i}" class="${i===selected?'selected':''}"><td>${i+1}</td><td>${p.section}</td><td>${Math.round(p.a.distanceTo(p.b))}</td></tr>`).join('');$('bomBody').querySelectorAll('tr').forEach(tr=>tr.onclick=()=>select(+tr.dataset.i))}
+function screenRay(ev){let r=canvas.getBoundingClientRect();mouse.x=((ev.clientX-r.left)/r.width)*2-1;mouse.y=-((ev.clientY-r.top)/r.height)*2+1;ray.setFromCamera(mouse,camera)}
+function groundPoint(ev){screenRay(ev);if(ray.ray.intersectPlane(plane,hit))return new THREE.Vector3(snap(hit.x),0,snap(hit.z));return null}
+function findEndpoint(p,tolerance=65){let best=null,bd=tolerance;parts.forEach((part,i)=>[part.a,part.b].forEach((v,end)=>{let d=v.distanceTo(p);if(d<bd){bd=d;best={point:v.clone(),part:i,end}}}));return best}
+function smartPoint(p){let near=findEndpoint(p,85);return near?near.point.clone():p}
+function fit(){let max=Math.max(+$('width').value||900,+$('depth').value||600,+$('height').value||750,700);orbit.target.set(0,max*.45,0);camera.position.set(max*1.65,max*1.35,max*1.85);orbit.update()}
+function buildFrame(){save();clearWorld();parts=[];let W=+$('width').value||900,D=+$('depth').value||600,H=+$('height').value||750;let v=[[-W/2,0,-D/2],[W/2,0,-D/2],[W/2,0,D/2],[-W/2,0,D/2],[-W/2,H,-D/2],[W/2,H,-D/2],[W/2,H,D/2],[-W/2,H,D/2]].map(a=>new THREE.Vector3(...a));let edges=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];edges.forEach(([a,b])=>{let s=$('section').value,mesh=beamGeometry(v[a],v[b],s);parts.push({a:v[a].clone(),b:v[b].clone(),section:s,joint,mesh})});rebuildConnectors();select(-1);fit();msg('Şase oluşturuldu')}
+function clearWorld(){while(world.children.length){let o=world.children[0];world.remove(o);o.traverse?.(x=>{if(x.geometry)x.geometry.dispose()})}connectors=[]}
+function setMode(m){mode=m;firstPoint=null;let t={select:['SEÇİM MODU','Profile tıkla; taşıma / döndürme gizmosu açılır'],beam:['PROFİL EKLE','İki noktaya tıkla; uç noktaya yaklaştırınca otomatik yakalar'],vertical:['DİKEY PROFİL','Zemine tıkla'],frame:['HAZIR ŞASE','Sağ panelden ölçü girip oluştur']}[m];$('modeTitle').textContent=t[0];$('modeHelp').textContent=t[1];$('statusText').textContent=t[0];document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',b.dataset.mode===m));if(m!=='select')transform.detach()}
 document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
-document.querySelectorAll('[data-joint]').forEach(b=>b.onclick=()=>{joint=b.dataset.joint;$('jointSelect').value=joint;document.querySelectorAll('[data-joint]').forEach(x=>x.classList.toggle('active',x===b));update()});
-$('jointSelect').onchange=e=>{joint=e.target.value;document.querySelectorAll('[data-joint]').forEach(x=>x.classList.toggle('active',x.dataset.joint===joint));update()};
-function groundPoint(ev){let r=canvas.getBoundingClientRect();mouse.x=(ev.clientX-r.left)/r.width*2-1;mouse.y=-((ev.clientY-r.top)/r.height)*2+1;ray.setFromCamera(mouse,camera);if(ray.ray.intersectPlane(ground,hitPoint))return new THREE.Vector3(snap(hitPoint.x),0,snap(hitPoint.z));return null}
-canvas.addEventListener('pointerdown',ev=>{if(ev.button!==0||mode==='select')return;let p=groundPoint(ev);if(!p)return;if(mode==='beam'){if(!firstPoint){firstPoint=p;toast('Başlangıç noktası seçildi; bitiş noktasını seç')}else{addMember(firstPoint,p);firstPoint=null}}else if(mode==='vertical'){let L=Math.max(30,Math.min(3000,+$('length').value||700));addMember(p,new THREE.Vector3(p.x,L,p.z))}});
-canvas.addEventListener('click',ev=>{if(mode!=='select')return;let r=canvas.getBoundingClientRect();mouse.x=(ev.clientX-r.left)/r.width*2-1;mouse.y=-((ev.clientY-r.top)/r.height)*2+1;ray.setFromCamera(mouse,camera);let hits=ray.intersectObjects(world.children,true);let root=hits.map(h=>h.object.userData.profileRoot).find(Boolean);selected=root?members.findIndex(m=>m.mesh===root):-1;update()});
-canvas.addEventListener('pointermove',ev=>{let p=groundPoint(ev);if(p)$('coords').innerHTML=`X ${Math.round(p.x)} · Y 0 · Z ${Math.round(p.z)}<br>SNAP ${$('snap').value==='0'?'SERBEST':$('snap').value+' mm'}`});
-$('build').onclick=buildFrame;$('reset').onclick=()=>{history=[];$('width').value=900;$('depth').value=600;$('height').value=750;$('section').value='45x45';joint='corner';$('jointSelect').value=joint;buildFrame()};
-$('clear').onclick=()=>{snapshot();clearWorld();members=[];selected=-1;feetOn=false;$('feet').textContent='+ Dört makine ayağı ekle';update();toast('Sahne temizlendi')};
-$('feet').onclick=()=>{if(feetOn){if(feetGroup)world.remove(feetGroup);feetGroup=null;feetOn=false;$('feet').textContent='+ Dört makine ayağı ekle';update()}else{let W=+$('width').value||900,D=+$('depth').value||600;makeFeet([[-W/2,-D/2],[W/2,-D/2],[W/2,D/2],[-W/2,D/2]].map(v=>new THREE.Vector3(v[0],0,v[1])))}};
-$('footType').onchange=()=>{if(feetOn){let W=+$('width').value||900,D=+$('depth').value||600;makeFeet([[-W/2,-D/2],[W/2,-D/2],[W/2,D/2],[-W/2,D/2]].map(v=>new THREE.Vector3(v[0],0,v[1])))}};
-$('undo').onclick=()=>{let prev=history.pop();if(!prev)return toast('Geri alınacak işlem yok');clearWorld();members=[];prev.forEach(m=>{let mesh=makeProfile(m.a,m.b,m.section);members.push({...m,mesh})});rebuildConnectors();selected=-1;feetOn=false;update();toast('Son işlem geri alındı')};
-$('delete').onclick=()=>{if(selected<0)return toast('Önce profil seç');snapshot();let m=members.splice(selected,1)[0];world.remove(m.mesh);selected=-1;rebuildConnectors();update();toast('Profil silindi')};
-window.addEventListener('keydown',e=>{if((e.key==='Delete'||e.key==='Backspace')&&selected>=0){e.preventDefault();$('delete').click()}});
-$('section').onchange=()=>toast('Yeni kesit, eklenecek profillere uygulanır');
-$('snap').onchange=()=>{$('snapText').textContent=$('snap').value==='0'?'Serbest':$('snap').value+' mm'};
+document.querySelectorAll('[data-joint]').forEach(b=>b.onclick=()=>{joint=b.dataset.joint;document.querySelectorAll('[data-joint]').forEach(x=>x.classList.toggle('active',x===b));update()});
+canvas.addEventListener('pointerdown',ev=>{if(mode==='select'||ev.button!==0)return;let p=groundPoint(ev);if(!p)return;if(mode==='beam'){p=smartPoint(p);if(!firstPoint){firstPoint=p;msg('Başlangıç noktası seçildi; bitiş noktasını seç')}else{addPart(firstPoint,smartPoint(p));firstPoint=null}}else if(mode==='vertical'){let L=+$('length').value||700;addPart(smartPoint(p),new THREE.Vector3(p.x,L,p.z))}});
+canvas.addEventListener('click',ev=>{if(mode!=='select'||transform.dragging)return;screenRay(ev);let hits=ray.intersectObjects(world.children,true);let root=hits.map(h=>h.object.userData.root).find(Boolean);select(root?parts.findIndex(p=>p.mesh===root):-1)});
+transform.addEventListener('dragging-changed',e=>{
+ orbit.enabled=!e.value;dragging=e.value;
+ if(e.value&&selected>=0){dragStart={position:parts[selected].mesh.position.clone(),quaternion:parts[selected].mesh.quaternion.clone()};}
+});
+transform.addEventListener('mouseUp',()=>{
+ if(selected<0||!dragStart)return;
+ let part=parts[selected],obj=part.mesh,step=+$('moveSnap').value;
+ if(step){obj.position.set(Math.round(obj.position.x/step)*step,Math.round(obj.position.y/step)*step,Math.round(obj.position.z/step)*step);}
+ const oldCenter=dragStart.position.clone(),newCenter=obj.position.clone();
+ const dq=obj.quaternion.clone().multiply(dragStart.quaternion.clone().invert());
+ part.a.sub(oldCenter).applyQuaternion(dq).add(newCenter);
+ part.b.sub(oldCenter).applyQuaternion(dq).add(newCenter);
+ // After grid snapping, try to mate either end to the nearest endpoint of another profile.
+ let mate=null,best=58;
+ parts.forEach((other,i)=>{if(i===selected)return;[other.a,other.b].forEach(target=>{
+  [part.a,part.b].forEach((end,endIndex)=>{let d=end.distanceTo(target);if(d<best){best=d;mate={target:target.clone(),endIndex};}});
+ });});
+ if(mate){let moving=mate.endIndex===0?part.a:part.b,delta=mate.target.clone().sub(moving);part.a.add(delta);part.b.add(delta);obj.position.add(delta);}
+ dragStart=null;rebuildConnectors();update();msg(mate?'Profil diğer profile otomatik oturdu':'Parça konumu / yönü güncellendi');
+});
+$('translate').onclick=()=>{transform.setMode('translate');$('translate').classList.add('active');$('rotate').classList.remove('active')};$('rotate').onclick=()=>{transform.setMode('rotate');$('rotate').classList.add('active');$('translate').classList.remove('active')};
+$('moveSnap').onchange=()=>{let s=+$('moveSnap').value;transform.setTranslationSnap(s||null);$('snapStatus').textContent=s?s+' mm':'Serbest'};$('rotateSnap').onchange=()=>{let s=+$('rotateSnap').value;transform.setRotationSnap(s?THREE.Math.degToRad(s):null)};
+$('build').onclick=buildFrame;$('clear').onclick=()=>{save();clearWorld();parts=[];select(-1);update()};
+$('delete').onclick=()=>{if(selected<0)return msg('Önce profil seç');save();world.remove(parts[selected].mesh);parts.splice(selected,1);select(-1);rebuildConnectors();update()};
+$('undo').onclick=()=>{let old=history.pop();if(!old)return msg('Geri alınacak işlem yok');clearWorld();parts=[];old.forEach(p=>parts.push({...p,mesh:beamGeometry(p.a,p.b,p.section)}));rebuildConnectors();select(-1);update()};
 $('gridBtn').onclick=()=>{showGrid=!showGrid;grid.visible=showGrid;$('gridBtn').textContent=showGrid?'Izgara ✓':'Izgara'};
-$('fit').onclick=fit;$('iso').onclick=fit;
-$('front').onclick=()=>{let m=Math.max(+$('width').value||900,700);camera.position.set(0,350,m*2.8);controls.target.set(0,350,0);controls.update()};
-$('side').onclick=()=>{let m=Math.max(+$('depth').value||600,700);camera.position.set(m*2.8,350,0);controls.target.set(0,350,0);controls.update()};
-$('top').onclick=()=>{camera.position.set(0,2600,.01);controls.target.set(0,0,0);controls.update()};
-function exportCSV(){let rows=[['No','Bilesen','Kesit','Boy_mm','Baglanti'],...members.map((m,i)=>[i+1,'Sigma profil',m.section,Math.round(m.a.distanceTo(m.b)),m.joint])];let blob=new Blob(['\ufeff'+rows.map(r=>r.join(';')).join('\n')],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='framelab-kesim-listesi.csv';a.click();URL.revokeObjectURL(a.href)}
-$('csv').onclick=exportCSV;$('csvTop').onclick=exportCSV;
-function resize(){let r=canvas.getBoundingClientRect();if(!r.width||!r.height)return;renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.updateProjectionMatrix()}
-new ResizeObserver(resize).observe(canvas);window.addEventListener('resize',resize);resize();
-function animate(){requestAnimationFrame(animate);controls.update();renderer.render(scene,camera)}animate();
-$('loading').classList.add('hidden');$('snapText').textContent='45 mm';setMode('select');buildFrame();
+$('iso').onclick=fit;$('fit').onclick=fit;$('front').onclick=()=>{camera.position.set(0,350,3000);orbit.target.set(0,350,0);orbit.update()};$('side').onclick=()=>{camera.position.set(3000,350,0);orbit.target.set(0,350,0);orbit.update()};$('top').onclick=()=>{camera.position.set(0,3000,.01);orbit.target.set(0,0,0);orbit.update()};
+$('snap').onchange=()=>{$('coords').innerHTML='SNAP '+($('snap').value||'Serbest')+' mm'};window.addEventListener('keydown',e=>{if(e.key==='Home')fit();if((e.key==='Delete'||e.key==='Backspace')&&selected>=0)$('delete').click();if(e.key==='Escape'){select(-1);setMode('select')}});
+function csv(){let rows=[['No','Profil','Kesit','Uzunluk_mm'],...parts.map((p,i)=>[i+1,'Sigma profil',p.section,Math.round(p.a.distanceTo(p.b))])];let blob=new Blob(['\ufeff'+rows.map(r=>r.join(';')).join('\n')],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='framelab-kesim-listesi.csv';a.click();URL.revokeObjectURL(a.href)}$('csv').onclick=csv;$('saveCsv').onclick=csv;
+new ResizeObserver(()=>{let r=canvas.getBoundingClientRect();if(!r.width||!r.height)return;renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.updateProjectionMatrix()}).observe(canvas);
+function animate(){requestAnimationFrame(animate);orbit.update();renderer.render(scene,camera)}animate();$('snapStatus').textContent='5 mm';setMode('select');buildFrame();
 })();
 </script>
-</body>
-</html>
+</body></html>
